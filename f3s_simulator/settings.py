@@ -1,4 +1,7 @@
 # Django settings for f3s_simulator project.
+import os
+
+PROJECT_ROOT = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -24,7 +27,7 @@ DATABASES = {
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
 # In a Windows environment this must be set to your system time zone.
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'UTC'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -102,7 +105,9 @@ ROOT_URLCONF = 'f3s_simulator.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'f3s_simulator.wsgi.application'
 
-TEMPLATE_DIRS = ('D:/Users/Akinfold/Documents/GitHub/f3s_simulator/templates',)
+TEMPLATE_DIRS = (
+    os.path.join(PROJECT_ROOT, 'templates'),
+)
 
 INSTALLED_APPS = (
     'django.contrib.auth',
