@@ -16,3 +16,19 @@ class Map(CommonModel):
 
     def __unicode__(self):
         return self.name
+
+
+
+class Fuel(CommonModel):
+    """
+    Fuel.
+    Examples: grass, pine, etc.
+    """
+    map = models.ForeignKey(Map)
+    name = models.CharField(_('name'), max_length=255, unique=True, help_text=_('Fuel name'))
+    polygons = models.MultiPolygonField(_('polygons'))
+
+    objects = models.GeoManager()
+
+    def __unicode__(self):
+        return self.name
