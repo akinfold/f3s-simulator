@@ -19,6 +19,15 @@ class Map(CommonModel):
 
 
 
+class Environment(CommonModel):
+    """
+    Abstraction representing global values such as air temperature, wind direction and speed, etc.
+    Environment changes in time, so each game contains own sequence of environments.
+    """
+    pass
+
+
+
 class Fuel(CommonModel):
     """
     Fuel.
