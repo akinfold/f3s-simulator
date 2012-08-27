@@ -34,19 +34,18 @@ class Environment(CommonModel):
 
 
 
-class Fuel(CommonModel):
+class Flammable(CommonModel):
     """
-    Fuel.
-    Examples: grass, pine, etc.
+    Flammable object on the map.
     """
-    map = models.ForeignKey(Map, related_name='fuel')
-    name = models.CharField(_('name'), max_length=255, unique=True, help_text=_('Fuel name'))
+    map = models.ForeignKey(Map, related_name='flammables')
+    name = models.CharField(_('name'), max_length=32, blank=True)
     polygon = models.PolygonField(_('polygon'))
 
     objects = models.GeoManager()
 
     def __unicode__(self):
-        return self.name
+        return '%s on % map' % (self.name, self.map.name)
 
 
 
