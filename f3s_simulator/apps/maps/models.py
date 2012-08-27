@@ -28,6 +28,7 @@ class Environment(CommonModel):
     air_temp = models.FloatField(_('air temperature'), default=0)
     wind_speed = models.FloatField(_('wind speed'), default=0)
     wind_direction = models.IntegerField(_('wind direction'), default=0)
+    rainfall = models.IntegerField(_('rainfall'), default=0)
 
     def __unicode__(self):
         return '%s environment' % self.map.name
