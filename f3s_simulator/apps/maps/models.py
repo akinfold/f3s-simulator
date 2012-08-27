@@ -47,3 +47,16 @@ class Fuel(CommonModel):
 
     def __unicode__(self):
         return self.name
+
+
+
+class Reservoir(CommonModel):
+    """
+    Water reservoir on the map.
+    """
+    map = models.ForeignKey(Map, related_name='reservoirs')
+    name = models.CharField(_('reservoir name'), max_length=32, blank=True)
+    polygon = models.PolygonField(_('polygon'))
+
+    objects = models.GeoManager()
+    
