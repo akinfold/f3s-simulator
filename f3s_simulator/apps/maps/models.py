@@ -22,7 +22,7 @@ class Map(CommonModel):
 class Environment(CommonModel):
     """
     Abstraction representing global values such as air temperature, wind direction and speed, etc.
-    Environment changes in time, so each game contains own sequence of environments.
+    Environment changes in time, so each game contains own sequence of environment snapshots.
     """
     map = models.OneToOneField(Map)
     air_temp = models.FloatField(_('air temperature'), default=0)
