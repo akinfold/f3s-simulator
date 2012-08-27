@@ -75,3 +75,21 @@ class Reservoir(CommonModel):
 
     def __unicode__(self):
         return '%s on % map' % (self.name, self.map.name)
+
+
+
+class Burnout(CommonModel):
+    """
+    Territory damaged by fire.
+
+    On each step burnouts polygons recalculates, then checks for intersection.
+    Intersected burnouts merges into new burnout.
+    All fires linked to merged burnouts should be relinked to new burnout.
+    """
+    map = models.ForeignKey(Map, related_name='burnouts')
+    name = models.CharField(_('burnout name'), max_length=32, blank=True)
+    child = models.ForeignKey('self', related_name='parents', blank=True, null=True)
+    polygon = models.PolygonField(_('polygon'))
+
+    def __unicode__(self):
+        return '%s on % map' % (self.name, self.map.name)
