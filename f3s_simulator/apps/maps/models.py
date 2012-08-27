@@ -33,11 +33,20 @@ class Environment(CommonModel):
         return '%s environment' % self.map.name
 
 
+class FlammableType(CommonModel):
+    """
+    Flammable material type.
+    """
+    name = models.CharField(_('name'), max_length=32, unique=True)
+    colour = models.CharField(_('display colour'), max)
+
+
 
 class Flammable(CommonModel):
     """
     Flammable object on the map.
     """
+    type = models.ForeignKey(FlammableType, related_name='flammables')
     map = models.ForeignKey(Map, related_name='flammables')
     name = models.CharField(_('name'), max_length=32, blank=True)
     polygon = models.PolygonField(_('polygon'))
