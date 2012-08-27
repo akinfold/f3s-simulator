@@ -58,4 +58,6 @@ class Reservoir(CommonModel):
     polygon = models.PolygonField(_('polygon'))
 
     objects = models.GeoManager()
-    
+
+    def __unicode__(self):
+        return '%s on % map' % (self.name, self.map.name)
