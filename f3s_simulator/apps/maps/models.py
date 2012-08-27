@@ -2,6 +2,7 @@
 from django.contrib.auth.models import User
 from django.contrib.gis.db import models
 from django.utils.translation import ugettext_lazy as _
+from f3s_simulator.apps.games.models import Step
 from f3s_simulator.libs.models import CommonModel
 
 class Map(CommonModel):
@@ -25,6 +26,7 @@ class Environment(CommonModel):
     Environment changes in time, so each game contains own sequence of environment snapshots.
     """
     map = models.OneToOneField(Map)
+    step = models.OneToOneField(Step, blank=True, null=True)
     air_temp = models.FloatField(_('air temperature'), default=0)
     wind_speed = models.FloatField(_('wind speed'), default=0)
     wind_direction = models.IntegerField(_('wind direction'), default=0)
@@ -87,6 +89,7 @@ class Burnout(CommonModel):
     All fires linked to merged burnouts should be relinked to new burnout.
     """
     map = models.ForeignKey(Map, related_name='burnouts')
+    step = models.ForeignKey(Step, related_name='burnouts', blank=True, null=True)
     name = models.CharField(_('burnout name'), max_length=32, blank=True)
     child = models.ForeignKey('self', related_name='parents', blank=True, null=True)
     polygon = models.PolygonField(_('polygon'))
@@ -103,7 +106,8 @@ class Fire(CommonModel):
     On each step fires polygons recalculates, then checks for intersection.
     Intersected fires merges into new fire.
     """
-    map = models.ForeignKey(Map, related_name='burnouts')
+    map = models.ForeignKey(Map, related_name='fires')
+    step = models.ForeignKey(Step, related_name='fires', blank=True, null=True)
     burnout = models.ForeignKey(Burnout, related_name='fires')
     name = models.CharField(_('burnout name'), max_length=32, blank=True)
     child = models.ForeignKey('self', related_name='parents', blank=True, null=True)
