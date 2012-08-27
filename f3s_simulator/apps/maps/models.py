@@ -39,9 +39,9 @@ class Fuel(CommonModel):
     Fuel.
     Examples: grass, pine, etc.
     """
-    map = models.ForeignKey(Map)
+    map = models.ForeignKey(Map, related_name='fuel')
     name = models.CharField(_('name'), max_length=255, unique=True, help_text=_('Fuel name'))
-    polygons = models.MultiPolygonField(_('polygons'))
+    polygon = models.PolygonField(_('polygon'))
 
     objects = models.GeoManager()
 
