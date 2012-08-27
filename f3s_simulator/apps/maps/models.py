@@ -27,7 +27,7 @@ class FlammableType(CommonModel):
     Flammable material type.
     """
     name = models.CharField(_('name'), max_length=32, unique=True)
-    colour = models.CharField(_('display colour'), max)
+    colour = models.CharField(_('display colour'), max_length=10)
 
     def __unicode__(self):
         return self.name
