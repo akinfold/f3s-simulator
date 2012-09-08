@@ -100,3 +100,32 @@ class Fire(CommonModel):
 
     def __unicode__(self):
         return '%s on % map' % (self.name, self.map.name)
+
+
+
+class NonflammableType(CommonModel):
+    """
+    Nonflammable object type.
+    """
+    name = models.CharField(_('name'), max_length=32, unique=True)
+    colour = models.CharField(_('display colour'), max_length=10)
+
+    def __unicode__(self):
+        return self.name
+
+
+
+class Nonflammable(CommonModel):
+    """
+    Nonflammable object on the map.
+    """
+    type = models.ForeignKey(NonflammableType, related_name='nonflammables')
+    map = models.ForeignKey(Map, related_name='nonflammables')
+    step = models.ForeignKey(Step, related_name='nonflammables', blank=True, null=True)
+    name = models.CharField(_('name'), max_length=32, blank=True)
+    polygon = models.PolygonField(_('polygon'))
+
+    objects = models.GeoManager()
+
+    def __unicode__(self):
+        return '%s on %s map' % (self.name, self.map.name)
